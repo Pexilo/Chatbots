@@ -65,15 +65,23 @@ bots[1].addCommand("xbox", async (playerId) => {
 bots[2].addCommand(
   "hello",
   () =>
-    "❓ Bonjour, je suis YesNo Bot !<br>🔮 Je peux répondre à vos questions par oui ou non.<br>🗣️Essayez la commande suivante <code>ask 'votre phrase'</code>"
+    "❓ Bonjour, je suis YesNo Bot !<br>🔮 Je peux répondre à vos questions par oui ou non.<br>🗣️Essayez la commande suivante <code>ask 'votre phrase'</code> <code>random</code> <code>guess 'oui'/'non'</code>"
 );
 bots[2].addCommand(
   "help",
   () =>
-    "Commandes disponibles <code>hello</code> <code>help</code> <code>ask 'votre phrase'</code>"
+    "Commandes disponibles <code>hello</code> <code>help</code> <code>ask 'votre phrase'</code> <code>random</code> <code>guess 'oui' ou 'non'</code>"
 );
 bots[2].addCommand("ask", async () => {
-  const answer = await fetchYesNo();
+  const answer = await fetchYesNo("ask");
+  return answer;
+});
+bots[2].addCommand("random", async () => {
+  const answer = await fetchYesNo("random");
+  return answer;
+});
+bots[2].addCommand("guess", async (choice) => {
+  const answer = await fetchYesNo("guess", choice);
   return answer;
 });
 

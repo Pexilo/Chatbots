@@ -18,6 +18,8 @@ export const selector = (bots) => {
     botButton.appendChild(avatarImg);
     botButton.innerHTML += bot.name;
     botButton.classList.add("bot-button");
+
+    // Gé&rer les évenements de clic
     botButton.addEventListener("click", () => selectBot(bot));
     selectorDiv.appendChild(botButton);
   });
@@ -25,6 +27,7 @@ export const selector = (bots) => {
   return selectorDiv;
 };
 
+// Chnage l'onglet avec le bot sélectionné
 const selectBot = (bot) => {
   document.querySelector("#selectedBot").innerText = bot.name;
   document.querySelector("#selectedBotAvatar").src = bot.avatar;
@@ -36,17 +39,16 @@ const selectBot = (bot) => {
   // Charger l'historique des messages
   const messages = getMessagesFromLocalStorage(bot.name);
   messages.forEach(({ sender, text, timestamp }) => {
-    const msg = message(sender, text, timestamp);
-
-    // Remettre les messages au bon endroit
-    if (sender === bot.name) {
-      msg.classList.add("bot");
-    } else {
-      msg.classList.add("user");
-    }
+    // Remettre les messages au bon format
+    const isUser = sender !== bot.name;
+    const msg = message(sender, text, timestamp, isUser);
+    isUser ? msg.classList.add("user") : msg.classList.add("bot");
 
     messageContainer.appendChild(msg);
   });
+
+  // Forcer le défilement vers le bas
+  messageContainer.scrollTop = messageContainer.scrollHeight;
 
   throwCommandHello(bot);
 };

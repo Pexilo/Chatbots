@@ -21,3 +21,9 @@ export const home = () => {
 
   return app;
 };
+
+// Fonction pour récupérer l'avatar du bot sélectionné
+export const getSelectedBotAvatar = () => {
+  const selectedBotAvatar = document.getElementById("selectedBotAvatar");
+  return selectedBotAvatar ? selectedBotAvatar.src : robotImg;
+};

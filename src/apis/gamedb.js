@@ -1,28 +1,31 @@
-const fetchPlayerStats = async (filter, playerId) => {
+const fetchPlayerStats = async (commandType, playerId) => {
   // minecraft, steam, xbox
-  if (!filter || !playerId) {
+  if (!commandType || !playerId) {
     return "Veuillez saisir un launcher (minecraft, steam, xbox) et un identifiant de joueur.";
   }
 
-  const url = `https://playerdb.co/api/player/${filter}/${playerId}`;
+  const url = `https://playerdb.co/api/player/${commandType}/${playerId}`;
 
   try {
     const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
     const data = await response.json();
     const filteredStats = data.data.player;
 
-    if (filter === "steam") {
+    if (commandType === "steam") {
       return formatSteamStats(filteredStats);
-    } else if (filter === "minecraft") {
-      return formatMinecraftStats(filteredStats);
-    } else if (filter === "xbox") {
-      return formatXboxPlayerStats(filteredStats);
-    } else {
-      return "Aucun filtre appliqué. Veuillez saisir un launcher (minecraft, steam, xbox).";
     }
+
+    if (commandType === "minecraft") {
+      return formatMinecraftStats(filteredStats);
+    }
+
+    if (commandType === "xbox") {
+      return formatXboxPlayerStats(filteredStats);
+    }
+
+    return "Aucun filtre appliqué. Veuillez saisir un launcher (minecraft, steam, xbox).";
   } catch (error) {
     return "Erreur lors de la récupération des données.";
   }

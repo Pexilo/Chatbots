@@ -6,6 +6,11 @@ export const messages = () => {
   messageContainer.style.overflowY = "scroll";
   messageContainer.style.height = "60vh";
 
+  // Forcer le défilement vers le bas au chargement initial
+  setTimeout(() => {
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+  }, 0);
+
   return messageContainer;
 };
 

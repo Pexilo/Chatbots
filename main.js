@@ -6,6 +6,7 @@ import "./src/styles/style.css";
 document.querySelector("#app").appendChild(home());
 
 const messageContainer = document.getElementById("messages");
+const getBotNames = () => bots.map((bot) => bot.name);
 
 const sendMessage = async () => {
   const chatInput = document.getElementById("chatInput");
@@ -13,8 +14,8 @@ const sendMessage = async () => {
   const selectedBotName = document.querySelector("#selectedBot").innerText;
 
   // Permet d'ajouter un message à la conversation
-  if (messageText && selectedBotName) {
-    addMessage(messageContainer, "You", messageText, true);
+  if (messageText && getBotNames().includes(selectedBotName)) {
+    addMessage(messageContainer, "Moi", messageText, true);
 
     // Permet de répondre à la commande directement
     const bot = bots.find((b) => b.name === selectedBotName);
