@@ -1,6 +1,6 @@
 # 🤖 Chatbots Academic Exam
 
-Live demo https://pexilo.github.io/chatbots/
+Live demo https://pexilo.github.io/Chatbots/
 
 ## ⚡ About the Project
 
